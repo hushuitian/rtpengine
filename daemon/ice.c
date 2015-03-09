@@ -620,7 +620,7 @@ static void __do_ice_check(struct ice_candidate_pair *pair) {
 
 	stun_binding_request(&pair->remote_candidate->endpoint, transact, &ag->pwd[0], ag->ufrag,
 			AGENT_ISSET(ag, CONTROLLING), tie_breaker,
-			prio, &pair->local_intf->spec->address.addr, &ps->sfd->socket,
+			prio, &pair->local_intf->spec->address.addr, &ps->selected_sfd->socket,
 			PAIR_ISSET(pair, TO_USE));
 
 }
@@ -711,7 +711,7 @@ static void __do_ice_checks(struct ice_agent *ag) {
 
 		/* skip dead streams */
 		ps = pair->packet_stream;
-		if (!ps || !ps->sfd)
+		if (!ps || !ps->selected_sfd)
 			continue;
 		if (PAIR_ISSET(pair, FAILED))
 			continue;
